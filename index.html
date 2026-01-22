@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text to Image AI</title>
+</head>
+<body>
+  <h2>Text to Image Generator</h2>
+
+  <input id="prompt" placeholder="Enter your prompt" style="width:300px">
+  <button onclick="generate()">Generate</button>
+
+  <br><br>
+  <img id="result" width="400"/>
+
+<script>
+async function generate() {
+  const prompt = document.getElementById("prompt").value;
+
+  const res = await fetch("/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await res.json();
+  document.getElementById("result").src = data.image;
+}
+</script>
+</body>
+</html>
